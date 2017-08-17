@@ -2,14 +2,14 @@ require 'pry'
 require 'colorize'
 
 @eightball_output = [
-  "Try again.",
-  "Not even close.",
-  "Dream on.",
-  "As if.",
-  "Go for it!",
-  "Absolutely!",
-  "Yes!",
-  "No."
+  "Try again",
+  "Not even close",
+  "Dream on",
+  "As if",
+  "Go for it",
+  "Absolutely",
+  "Yes",
+  "No"
 ]
 @new_answers = @eightball_output.clone
 
@@ -88,7 +88,8 @@ end
 def add_answer
   puts "Enter a new answer."
   new_answer = gets.strip
-  if @new_answers.include? new_answer
+  new_answer.downcase
+  if @new_answers.join(" ").downcase.include? new_answer
     puts "Tell me something I don't know."
     add_answer
   else
