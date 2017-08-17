@@ -11,6 +11,8 @@ require 'colorize'
   "Yes!",
   "No."
 ]
+@new_answers = []
+
 @history = []
 
 #_______________Menu____________________
@@ -67,25 +69,35 @@ def easter_egg
   puts "That is the secret password: Tell me what to do."
   puts "==============================================".colorize(:color => :blue, :background => :yellow)
   easter_arr = ["Add a new answer", "Reset answers", "View possible answers"]
+  easter_arr.each_with_index { |option, i| puts "#{i + 1}: #{option}"}
   option = gets.to_i
   case option
   when 1
+    add_answer
   when 2
+    reset_answers
   when 3
+    view_answers
   else
+    puts "Not an option. TRY AGAIN!"
+    easter_egg
   end
+end
 
 
 def add_answer
   puts "Enter a new answer."
   new_answer = gets.to_s
-  @eightball_output << new_answer
-  @eightball_output.uniq! #Need to figure this one out...as It lets me add them to the end but not after they have been added.
+  @new_answers << new_answer
+  @new_answers.uniq! #Need to figure this one out...as It lets me add them to the end but not after they have been added.
+end
+
+def reset_answers
 end
 
 def view_answers
   puts "==========================================".colorize(:yellow)
-  puts @eightball_output
+  puts @eightball_output - @new_answers
   puts "==========================================".colorize(:yellow)
   menu
 end
