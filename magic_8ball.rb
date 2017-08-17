@@ -11,7 +11,7 @@ require 'colorize'
   "Yes!",
   "No."
 ]
-@new_answers = []
+@new_answers = @eightball_output.clone
 
 @history = []
 
@@ -49,7 +49,7 @@ def ask_question
   end
   @history << question
   puts "==========================================".colorize(:yellow)
-  puts @eightball_output.sample
+  puts @new_answers.sample
   puts "==========================================".colorize(:yellow)
   menu
 end
@@ -87,17 +87,22 @@ end
 
 def add_answer
   puts "Enter a new answer."
-  new_answer = gets.to_s
-  @new_answers << new_answer
-  @new_answers.uniq! #Need to figure this one out...as It lets me add them to the end but not after they have been added.
+  new_answer = gets.strip
+  if @new_answers.include? new_answer
+    puts "Tell me something I don't know."
+    add_answer
+  else
+    @new_answers << new_answer
+  end
 end
 
 def reset_answers
+  @new_answers = @eightball_output.clone
 end
 
 def view_answers
   puts "==========================================".colorize(:yellow)
-  puts @eightball_output - @new_answers
+  puts @new_answers
   puts "==========================================".colorize(:yellow)
   menu
 end
